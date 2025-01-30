@@ -1,3 +1,5 @@
+## Here are notes that allowed me to install grizli and run mkstar_image.py from scratch on my Macbook iOS
+
 conda create -n roman python=3.10
 conda activate roman
 git clone https://github.com/roman-grs-pit/grizli.git
@@ -20,6 +22,15 @@ mkdir $PYSYN_CDBS
 wget http://ssb.stsci.edu/trds/tarfiles/synphot5.tar.gz -O $PYSYN_CDBS/synphot5.tar.gz 
 cd $PYSYN_CDBS
 tar xzvf synphot5.tar.gz
+
+## Note that when running mkstar_image.py the following error is produced that does not hinder running the script:
+UserWarning: Extinction files not found in /Users/ave_astro/pysyn_cdbs/extinction
+ warnings.warn('Extinction files not found in %s' % (extdir, ))
+UserWarning: No graph or component tables found; functionality will be SEVERELY crippled. No files found for /Users/ave_astro/pysyn_cdbs/mtab/*_tmg.fits
+ warnings.warn('No graph or component tables found; '
+UserWarning: No thermal tables found, no thermal calculations can be performed. No files found for /Users/ave_astro/pysyn_cdbs/mtab/*_tmt.fits
+ warnings.warn('No thermal tables found, '.
+## The extinction and mtab folder can be found here: https://pysynphot.readthedocs.io/en/stable/ but do not seem to be necessary at the moment.
 
 # In $HOME:
 mkdir webbpsf-data
