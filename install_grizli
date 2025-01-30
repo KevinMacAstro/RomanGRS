@@ -1,0 +1,37 @@
+conda create -n roman python=3.10
+conda activate roman
+git clone https://github.com/roman-grs-pit/grizli.git
+cd grizli
+pip install -e .
+mkdir CONF
+mkdir templates
+pip install ".[test]"
+pip install --force-reinstall numpy==1.26
+pip install webbpsf
+
+# Cloned https://github.com/roman-grs-pit/grism_sim and https://github.com/roman-grs-pit/star_fields into RomanReposits directory in $HOME
+# from ${HOME}/RomanReposits/grism_sim/py
+cp image_utils.py ~/miniconda3/envs/roman/lib/python3.10/site-packages
+
+conda install pysynphot
+export PYSYN_CDBS="${HOME}/pysyn_cdbs"
+mkdir $PYSYN_CDBS
+# (on iOS I used homebrew to install wget with ‘brew install wget’)
+wget http://ssb.stsci.edu/trds/tarfiles/synphot5.tar.gz -O $PYSYN_CDBS/synphot5.tar.gz 
+cd $PYSYN_CDBS
+tar xzvf synphot5.tar.gz
+
+# In $HOME:
+mkdir webbpsf-data
+# Downloaded https://stsci.box.com/shared/static/qxpiaxsjwo15ml6m4pkhtk36c9jgj70k.gz in webbpsf-data
+From https://webbpsf.readthedocs.io/en/latest/installation.html#data-install
+cd webbpsf-data
+tar xzvf webbpsf-data-LATEST.tar.gz
+
+# In .zshrc (or .bashrc) put
+export GRIZLI="${HOME}/grizli" 
+export PYSYN_CDBS="${HOME}/pysyn_cdbs"
+export WEBBPSF_PATH="${HOME}/webbpsf-data"
+
+# In *grism_sim/scripts/ ran:
+python mkstar_image.py --github_dir ${HOME}/RomanReposits/ --star_image_dir ${HOME}/grizli/outputs/
